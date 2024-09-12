@@ -3,6 +3,7 @@ package org.example;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
 public class App {
 
 
@@ -39,7 +40,11 @@ public class App {
                     break;
 
                 case "3":
-
+                    bubbleSort(priser);
+                    System.out.println("Elpriser sorterade efter pris:");
+                    for (int i = 0; i < priser.size(); i++) {
+                        System.out.println(String.format("%02d-%02d", i, i + 1) + ": " + priser.get(i) + " öre");
+                    }
                     break;
 
 
@@ -80,7 +85,36 @@ public class App {
         }
         return sum / priser.size();
     }
+
+    public static void bubbleSort(ArrayList<Double> list) {
+        boolean swapped;
+        for (int i = 0; i < list.size() - 1; i++) {
+            swapped = false;
+            for (int j = 0; j < list.size() - i - 1; j++) {
+                if (list.get(j) < list.get(j + 1))
+                {
+                    double temp = list.get(j);
+                    list.set(j, list.get(j + 1));
+                    list.set(j + 1, temp);
+
+
+                    swapped = true;
+                }
+            }
+            if (!swapped) {
+                break;
+
+
+            }
+        }
+    }
 }
+
+
+
+
+
+
 
 
 
