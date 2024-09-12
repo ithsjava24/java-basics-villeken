@@ -9,9 +9,8 @@ public class App {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         ArrayList<Double> priser = new ArrayList<>();
-
-        while (true) {
-            System.out.println("""
+        do {
+            System.out.print("""
                     Elpriser
                     ============
                     1. Inmatning
@@ -20,10 +19,9 @@ public class App {
                     4. Bästa laddningstid (4h)
                     e. Avsluta
                     """);
-
             String val = sc.nextLine().toLowerCase();
 
-            switch (val) {
+            switch (val.toLowerCase()) {
                 case "1":
                     System.out.print("Ange elpriserna för varje timme (hela öre):\n");
                     for (int hour = 0; hour < 24; hour++) {
@@ -33,22 +31,26 @@ public class App {
                         sc.nextLine();
                     }
                     break;
+
                 case "2":
-                    System.out.print("Lägsta pris: " + findMin(priser) + " öre/kWh\n");
-                    System.out.print("Högsta pris: " + findMax(priser) + " öre/kWh\n");
+                    System.out.printf("Lägsta pris: " + findMin(priser) + " öre/kWh\n");
+                    System.out.printf("Högsta pris: " + findMax(priser) + " öre/kWh\n");
                     System.out.printf("Medelpris: " + medelVarde(priser) + " öre/kWh\n");
                     break;
 
                 case "3":
 
+                    break;
+
 
                 case "e":
                     System.out.println("Programmet avslutas.");
+
                     return;
                 default:
                     System.out.println("Ogiltigt val.");
             }
-        }
+        } while (true);
     }
 
     public static double findMin(ArrayList<Double> priser) {
