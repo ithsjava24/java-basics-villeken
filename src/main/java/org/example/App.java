@@ -10,8 +10,10 @@ public class App {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         ArrayList<Double> priser = new ArrayList<>();
-        do {
-            System.out.print("""
+        ArrayList<String> timestamps = new ArrayList<>();
+        boolean avslut = true;
+        while (avslut) {
+            String menu = """
                     Elpriser
                     ============
                     1. Inmatning
@@ -19,14 +21,17 @@ public class App {
                     3. Sortera
                     4. Bästa laddningstid (4h)
                     e. Avsluta
-                    """);
+                    """;
+            System.out.print(menu);
             String val = sc.nextLine().toLowerCase();
 
             switch (val.toLowerCase()) {
                 case "1":
                     System.out.print("Ange elpriserna för varje timme (hela öre):\n");
                     for (int hour = 0; hour < 24; hour++) {
-                        System.out.print("Hour " + String.format("%02d", hour) + "-" + String.format("%02d", hour + 1) + ": ");
+                        String timestamp = String.format("%02d-%02d", hour, hour + 1);
+                        timestamps.add(timestamp);
+                        System.out.print("Timme " + timestamp + ": ");
                         double price = sc.nextDouble();
                         priser.add(price);
                         sc.nextLine();
@@ -34,69 +39,91 @@ public class App {
                     break;
 
                 case "2":
-                    System.out.printf("Lägsta pris: " + findMin(priser) + " öre/kWh\n");
-                    System.out.printf("Högsta pris: " + findMax(priser) + " öre/kWh\n");
+                    int findMinIndex = findMinIndex(priser);
+                    int findMaxIndex = findMaxIndex(priser);
+
+                    System.out.printf("Lägsta pris: %s, %.0f öre/kWh\n", timestamps.get(findMinIndex), priser.get(findMinIndex));
+                    System.out.printf("Högsta pris: %s, %.0f öre/kWh\n", timestamps.get(findMaxIndex), priser.get(findMaxIndex));
                     System.out.printf("Medelpris: " + medelVarde(priser) + " öre/kWh\n");
                     break;
 
                 case "3":
-                    bubbleSort(priser);
-                    System.out.println("Elpriser sorterade efter pris:");
+                    bubbleSort(priser, timestamps);
                     for (int i = 0; i < priser.size(); i++) {
-                        System.out.println(String.format("%02d-%02d", i, i + 1) + ": " + priser.get(i) + " öre");
+                        System.out.print(timestamps.get(i) + " " + String.format("%.0f", priser.get(i)) + " öre\n");
                     }
                     break;
 
+                case "4":
+
+                    break;
+
+
 
                 case "e":
-                    System.out.println("Programmet avslutas.");
 
+                    System.out.println("Programmet avslutas.");
+                    avslut = false;
                     return;
+
+
                 default:
                     System.out.println("Ogiltigt val.");
             }
-        } while (true);
+        }
     }
 
-    public static double findMin(ArrayList<Double> priser) {
-        double min = priser.get(0);
-        for (double pris : priser) {
-            if (pris < min) {
-                min = pris;
+    public static String formatPrice(double price) {
+        return String.format("%.2f", price).replace('.', ',');
+    }
+
+
+    public static int findMinIndex(ArrayList<Double> priser) {
+        int minIndex = 0;
+        double minPrice = priser.get(0);
+        for (int i = 1; i < priser.size(); i++) {
+            if (priser.get(i) < minPrice) {
+                minIndex = i;
+                minPrice = priser.get(i);
             }
         }
-        return min;
+        return minIndex;
     }
 
-    public static double findMax(ArrayList<Double> priser) {
-        double max = priser.get(0);
-        for (double pris : priser) {
-            if (pris > max) {
-                max = pris;
+    public static int findMaxIndex(ArrayList<Double> priser) {
+        int maxIndex = 0;
+        double maxPrice = priser.get(0);
+        for (int i = 1; i < priser.size(); i++) {
+            if (priser.get(i) > maxPrice) {
+                maxIndex = i;
+                maxPrice = priser.get(i);
             }
         }
-        return max;
+        return maxIndex;
     }
 
-    public static double medelVarde(ArrayList<Double> priser) {
+    public static String medelVarde(ArrayList<Double> priser) {
         double sum = 0;
         for (double pris : priser) {
             sum += pris;
         }
-        return sum / priser.size();
+        double average = sum / priser.size();
+        return formatPrice(average);
     }
 
-    public static void bubbleSort(ArrayList<Double> list) {
+    public static void bubbleSort(ArrayList<Double> priser, ArrayList<String> timestamps) {
         boolean swapped;
-        for (int i = 0; i < list.size() - 1; i++) {
+        for (int i = 0; i < priser.size() - 1; i++) {
             swapped = false;
-            for (int j = 0; j < list.size() - i - 1; j++) {
-                if (list.get(j) < list.get(j + 1))
-                {
-                    double temp = list.get(j);
-                    list.set(j, list.get(j + 1));
-                    list.set(j + 1, temp);
+            for (int j = 0; j < priser.size() - i - 1; j++) {
+                if (priser.get(j) < priser.get(j + 1)) {
+                    double tempPrice = priser.get(j);
+                    priser.set(j, priser.get(j + 1));
+                    priser.set(j + 1, tempPrice);
 
+                    String tempTimestamp = timestamps.get(j);
+                    timestamps.set(j, timestamps.get(j + 1));
+                    timestamps.set(j + 1, tempTimestamp);
 
                     swapped = true;
                 }
@@ -108,16 +135,8 @@ public class App {
             }
         }
     }
+    public static String cheapest4Hours(ArrayList<Double> priser, ArrayList<String> timestamps) {
+
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
 
