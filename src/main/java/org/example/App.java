@@ -55,14 +55,13 @@ public class App {
                     break;
 
                 case "4":
-
+                    String result = cheapest4Hours(priser, timestamps);
+                    System.out.println(result);
                     break;
-
 
 
                 case "e":
 
-                    System.out.println("Programmet avslutas.");
                     avslut = false;
                     return;
 
@@ -135,8 +134,30 @@ public class App {
             }
         }
     }
+
     public static String cheapest4Hours(ArrayList<Double> priser, ArrayList<String> timestamps) {
 
+        int cheapestStartIndex = 0;
+        double minTotal = Double.MAX_VALUE;
+
+        for (int i = 0; i < priser.size() - 3; i++) {
+            double currentTotal = 0;
+            for (int j = i; j < i + 4; j++) {
+                currentTotal += priser.get(j);
+            }
+
+            if (currentTotal < minTotal) {
+                cheapestStartIndex = i;
+                minTotal = currentTotal;
+            }
+        }
+
+        double averagePrice = minTotal / 4;
+
+        // Build the result string
+        String startTime = timestamps.get(cheapestStartIndex).split("-")[0];
+        String endTime = timestamps.get(cheapestStartIndex + 3);
+        return String.format("Påbörja laddning klockan %s\nMedelpris 4h: %.1f öre/kWh\n", startTime, averagePrice);
     }
 }
 
