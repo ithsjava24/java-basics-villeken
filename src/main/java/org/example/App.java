@@ -7,6 +7,8 @@ import java.util.Scanner;
 public class App {
 
 
+    public static final int ROW_COUNT = 10;
+
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -16,7 +18,7 @@ public class App {
         while (avslut) {
 
             String menu = """
-                    Elpriser
+                        Elpriser
                     ========
                     1. Inmatning
                     2. Min, Max och Medel
@@ -43,8 +45,8 @@ public class App {
                     break;
 
                 case "2":
-                    int findMinIndex = findMinIndex(priser);
-                    int findMaxIndex = findMaxIndex(priser);
+                    int findMinIndex = findMin(priser);
+                    int findMaxIndex = findMax(priser);
 
                     System.out.printf("Lägsta pris: %s, %.0f öre/kWh\n", timestamps.get(findMinIndex), priser.get(findMinIndex));
                     System.out.printf("Högsta pris: %s, %.0f öre/kWh\n", timestamps.get(findMaxIndex), priser.get(findMaxIndex));
@@ -62,6 +64,8 @@ public class App {
                     String result = cheapest4Hours(priser, timestamps);
                     System.out.println(result);
                     break;
+
+                case "5":
 
 
                 case "e":
@@ -81,7 +85,7 @@ public class App {
     }
 
 
-    public static int findMinIndex(ArrayList<Double> priser) {
+    public static int findMin(ArrayList<Double> priser) {
         int minIndex = 0;
         double minPrice = priser.get(0);
         for (int i = 1; i < priser.size(); i++) {
@@ -93,7 +97,7 @@ public class App {
         return minIndex;
     }
 
-    public static int findMaxIndex(ArrayList<Double> priser) {
+    public static int findMax(ArrayList<Double> priser) {
         int maxIndex = 0;
         double maxPrice = priser.get(0);
         for (int i = 1; i < priser.size(); i++) {
@@ -163,4 +167,6 @@ public class App {
         String endTime = timestamps.get(cheapestStartIndex + 3);
         return String.format("Påbörja laddning klockan %s\nMedelpris 4h: %.1f öre/kWh\n", startTime, averagePrice);
     }
+
+
 }
