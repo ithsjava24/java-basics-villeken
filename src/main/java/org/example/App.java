@@ -62,9 +62,6 @@ public class App {
                     System.out.println(result);
                     break;
 
-                case "5":
-
-
                 case "e":
 
                     avslut = false;
