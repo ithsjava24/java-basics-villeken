@@ -6,8 +6,8 @@ import java.util.Scanner;
 
 public class App {
 
-
     public static void main(String[] args) {
+
         Scanner sc = new Scanner(System.in);
         ArrayList<Double> priser = new ArrayList<>();
         ArrayList<String> timestamps = new ArrayList<>();
@@ -15,7 +15,7 @@ public class App {
         while (avslut) {
 
             String menu = """
-                    Elpriser
+                        Elpriser
                     ========
                     1. Inmatning
                     2. Min, Max och Medel
@@ -29,6 +29,8 @@ public class App {
             switch (val.toLowerCase()) {
                 case "1":
                     System.out.print("Ange elpriserna för varje timme (hela öre):\n");
+                    priser.clear();
+                    timestamps.clear();
                     for (int hour = 0; hour < 24; hour++) {
                         String timestamp = String.format("%02d-%02d", hour, hour + 1);
                         timestamps.add(timestamp);
@@ -40,8 +42,8 @@ public class App {
                     break;
 
                 case "2":
-                    int findMinIndex = findMinIndex(priser);
-                    int findMaxIndex = findMaxIndex(priser);
+                    int findMinIndex = findMin(priser);
+                    int findMaxIndex = findMax(priser);
 
                     System.out.printf("Lägsta pris: %s, %.0f öre/kWh\n", timestamps.get(findMinIndex), priser.get(findMinIndex));
                     System.out.printf("Högsta pris: %s, %.0f öre/kWh\n", timestamps.get(findMaxIndex), priser.get(findMaxIndex));
@@ -60,7 +62,6 @@ public class App {
                     System.out.println(result);
                     break;
 
-
                 case "e":
 
                     avslut = false;
@@ -78,7 +79,7 @@ public class App {
     }
 
 
-    public static int findMinIndex(ArrayList<Double> priser) {
+    public static int findMin(ArrayList<Double> priser) {
         int minIndex = 0;
         double minPrice = priser.get(0);
         for (int i = 1; i < priser.size(); i++) {
@@ -90,7 +91,7 @@ public class App {
         return minIndex;
     }
 
-    public static int findMaxIndex(ArrayList<Double> priser) {
+    public static int findMax(ArrayList<Double> priser) {
         int maxIndex = 0;
         double maxPrice = priser.get(0);
         for (int i = 1; i < priser.size(); i++) {
@@ -155,10 +156,11 @@ public class App {
 
         double averagePrice = minTotal / 4;
 
-        // Build the result string
+
         String startTime = timestamps.get(cheapestStartIndex).split("-")[0];
         String endTime = timestamps.get(cheapestStartIndex + 3);
         return String.format("Påbörja laddning klockan %s\nMedelpris 4h: %.1f öre/kWh\n", startTime, averagePrice);
     }
-}
 
+
+}
