@@ -11,16 +11,19 @@ public class App {
         Scanner sc = new Scanner(System.in);
         ArrayList<Double> priser = new ArrayList<>();
         ArrayList<String> timestamps = new ArrayList<>();
-        do {
-            System.out.print("""
+        boolean avslut = true;
+        while (avslut) {
+
+            String menu = """
                     Elpriser
-                    ============
+                    ========
                     1. Inmatning
                     2. Min, Max och Medel
                     3. Sortera
-                    4. Bästa laddningstid (4h)
+                    4. Bästa Laddningstid (4h)
                     e. Avsluta
-                    """);
+                    """;
+            System.out.print(menu);
             String val = sc.nextLine().toLowerCase();
 
             switch (val.toLowerCase()) {
@@ -50,16 +53,24 @@ public class App {
                     for (int i = 0; i < priser.size(); i++) {
                         System.out.print(timestamps.get(i) + " " + String.format("%.0f", priser.get(i)) + " öre\n");
                     }
+                    break;
+
+                case "4":
+                    String result = cheapest4Hours(priser, timestamps);
+                    System.out.println(result);
+                    break;
 
 
                 case "e":
-                    System.out.println("Programmet avslutas.");
 
+                    avslut = false;
                     return;
+
+
                 default:
                     System.out.println("Ogiltigt val.");
             }
-        } while (true);
+        }
     }
 
     public static String formatPrice(double price) {
@@ -124,23 +135,29 @@ public class App {
             }
         }
     }
+
+    public static String cheapest4Hours(ArrayList<Double> priser, ArrayList<String> timestamps) {
+
+        int cheapestStartIndex = 0;
+        double minTotal = Double.MAX_VALUE;
+
+        for (int i = 0; i < priser.size() - 3; i++) {
+            double currentTotal = 0;
+            for (int j = i; j < i + 4; j++) {
+                currentTotal += priser.get(j);
+            }
+
+            if (currentTotal < minTotal) {
+                cheapestStartIndex = i;
+                minTotal = currentTotal;
+            }
+        }
+
+        double averagePrice = minTotal / 4;
+
+        // Build the result string
+        String startTime = timestamps.get(cheapestStartIndex).split("-")[0];
+        String endTime = timestamps.get(cheapestStartIndex + 3);
+        return String.format("Påbörja laddning klockan %s\nMedelpris 4h: %.1f öre/kWh\n", startTime, averagePrice);
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
