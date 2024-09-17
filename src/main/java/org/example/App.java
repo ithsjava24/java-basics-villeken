@@ -2,12 +2,12 @@ package org.example;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-
+import java.util.Locale;
 
 public class App {
 
     public static void main(String[] args) {
-
+        Locale.setDefault(new Locale("sv", "SE"));
         Scanner sc = new Scanner(System.in);
         ArrayList<Double> priser = new ArrayList<>();
         ArrayList<String> timestamps = new ArrayList<>();
