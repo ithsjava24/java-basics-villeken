@@ -1,0 +1,100 @@
+<html>
+<head>
+<title>App.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #6aab73;}
+.s4 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+App.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">org</span><span class="s2">.</span><span class="s1">example</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">Scanner</span><span class="s2">;</span>
+
+<span class="s0">public class </span><span class="s1">App </span><span class="s2">{</span>
+
+    <span class="s0">public static void </span><span class="s1">main</span><span class="s2">(</span><span class="s1">String</span><span class="s2">[] </span><span class="s1">args</span><span class="s2">) {</span>
+        <span class="s1">Scanner sc </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Scanner</span><span class="s2">(</span><span class="s1">System</span><span class="s2">.</span><span class="s1">in</span><span class="s2">);</span>
+        <span class="s1">String menu </span><span class="s2">= </span><span class="s3">&quot;&quot;&quot; 
+                Elpriser 
+                ======== 
+                1. Inmatning 
+                2. Min, Max och Medel 
+                3. Sortera 
+                4. Bästa Laddningstid (4h) 
+                e. Avsluta 
+                &quot;&quot;&quot;</span><span class="s2">;</span>
+
+        <span class="s1">String input</span><span class="s2">;</span>
+        <span class="s0">do </span><span class="s2">{</span>
+
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s1">menu</span><span class="s2">);</span>
+
+            <span class="s1">input </span><span class="s2">= </span><span class="s1">sc</span><span class="s2">.</span><span class="s1">nextLine</span><span class="s2">();</span>
+
+
+            <span class="s0">switch </span><span class="s2">(</span><span class="s1">input</span><span class="s2">) {</span>
+                <span class="s0">case </span><span class="s3">&quot;1&quot; </span><span class="s1">-&gt; inmatning</span><span class="s2">();</span>
+
+
+                <span class="s0">case </span><span class="s3">&quot;2&quot; </span><span class="s1">-&gt; </span><span class="s2">{</span>
+
+                <span class="s2">}</span>
+
+                <span class="s0">case </span><span class="s3">&quot;3&quot; </span><span class="s1">-&gt; </span><span class="s2">{</span>
+                <span class="s2">}</span>
+
+
+                <span class="s0">case </span><span class="s3">&quot;e&quot; </span><span class="s1">-&gt; App</span><span class="s2">.</span><span class="s1">main</span><span class="s2">(</span><span class="s0">null</span><span class="s2">);</span>
+
+
+                <span class="s0">default </span><span class="s1">-&gt; </span><span class="s0">throw new </span><span class="s1">IllegalStateException</span><span class="s2">(</span><span class="s3">&quot;Unexpected value: &quot; </span><span class="s2">+ </span><span class="s1">input</span><span class="s2">);</span>
+            <span class="s2">}</span>
+
+        <span class="s2">} </span><span class="s0">while </span><span class="s2">(</span><span class="s1">input</span><span class="s2">.</span><span class="s1">equalsIgnoreCase</span><span class="s2">(</span><span class="s3">&quot;e&quot;</span><span class="s2">));</span>
+
+
+    <span class="s2">}</span>
+
+    <span class="s0">public static void </span><span class="s1">inmatning</span><span class="s2">() {</span>
+        <span class="s1">Scanner sc </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Scanner</span><span class="s2">(</span><span class="s1">System</span><span class="s2">.</span><span class="s1">in</span><span class="s2">);</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">print</span><span class="s2">(</span><span class="s3">&quot;Skriv in elpris i öre för alla timmar under ett dygn:</span><span class="s0">\n</span><span class="s3">&quot;</span><span class="s2">);</span>
+
+        <span class="s0">int</span><span class="s2">[] </span><span class="s1">pris </span><span class="s2">= {</span><span class="s4">40</span><span class="s2">, </span><span class="s4">10</span><span class="s2">, </span><span class="s4">20</span><span class="s2">, </span><span class="s4">10</span><span class="s2">, </span><span class="s4">10</span><span class="s2">, </span><span class="s4">10</span><span class="s2">, </span><span class="s4">10</span><span class="s2">, </span><span class="s4">10</span><span class="s2">, </span><span class="s4">10</span><span class="s2">, </span><span class="s4">10</span><span class="s2">, </span><span class="s4">10</span><span class="s2">, </span><span class="s4">10</span><span class="s2">, </span><span class="s4">10</span><span class="s2">, </span><span class="s4">10</span><span class="s2">, </span><span class="s4">10</span><span class="s2">, </span><span class="s4">10</span><span class="s2">, </span><span class="s4">10</span><span class="s2">, </span><span class="s4">10</span><span class="s2">, </span><span class="s4">10</span><span class="s2">, </span><span class="s4">10</span><span class="s2">, </span><span class="s4">10</span><span class="s2">, </span><span class="s4">10</span><span class="s2">, </span><span class="s4">10</span><span class="s2">, </span><span class="s4">10</span><span class="s2">, </span><span class="s4">3</span><span class="s2">};</span>
+
+
+    <span class="s2">}</span>
+
+
+<span class="s2">}</span>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+</body>
+</html>
